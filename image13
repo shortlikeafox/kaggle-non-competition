@@ -1,0 +1,28 @@
+digraph Tree {
+node [shape=box] ;
+0 [label="B_Reach_cms <= 154.94\ngini = 0.443\nsamples = 1543\nvalue = [467, 24, 1052]\nclass = y[2]"] ;
+1 [label="R_fighter_Bobby Hoffman <= 0.5\ngini = 0.067\nsamples = 203\nvalue = [4, 3, 196]\nclass = y[2]"] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
+2 [label="B_fighter_Ron Faircloth <= 0.5\ngini = 0.058\nsamples = 202\nvalue = [4, 2, 196]\nclass = y[2]"] ;
+1 -> 2 ;
+3 [label="gini = 0.049\nsamples = 201\nvalue = [4, 1, 196]\nclass = y[2]"] ;
+2 -> 3 ;
+4 [label="gini = 0.0\nsamples = 1\nvalue = [0, 1, 0]\nclass = y[1]"] ;
+2 -> 4 ;
+5 [label="gini = 0.0\nsamples = 1\nvalue = [0, 1, 0]\nclass = y[1]"] ;
+1 -> 5 ;
+6 [label="R_avg_opp_HEAD_landed <= 11.829\ngini = 0.472\nsamples = 1340\nvalue = [463, 21, 856]\nclass = y[2]"] ;
+0 -> 6 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
+7 [label="R_avg_SIG_STR_landed <= 8.833\ngini = 0.389\nsamples = 517\nvalue = [126, 7, 384]\nclass = y[2]"] ;
+6 -> 7 ;
+8 [label="gini = 0.467\nsamples = 165\nvalue = [59, 1, 105]\nclass = y[2]"] ;
+7 -> 8 ;
+9 [label="gini = 0.335\nsamples = 352\nvalue = [67, 6, 279]\nclass = y[2]"] ;
+7 -> 9 ;
+10 [label="R_avg_TD_pct <= 0.488\ngini = 0.503\nsamples = 823\nvalue = [337, 14, 472]\nclass = y[2]"] ;
+6 -> 10 ;
+11 [label="gini = 0.515\nsamples = 675\nvalue = [297, 14, 364]\nclass = y[2]"] ;
+10 -> 11 ;
+12 [label="gini = 0.394\nsamples = 148\nvalue = [40, 0, 108]\nclass = y[2]"] ;
+10 -> 12 ;
+}
