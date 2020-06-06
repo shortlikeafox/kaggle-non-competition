@@ -67,6 +67,9 @@ for w in wrestlers:
     wrestlers_list.append(w.get_text().strip())
     wrestlers_link_list.append(pos_link.attrs['href'])
 
+
+
+
 #display(len(wrestlers_list))
 
 
@@ -145,11 +148,39 @@ champ_tuples = list(zip(wrestlers_list, reign_list, days_list, date_list,
 df = pd.DataFrame(champ_tuples, columns=['name', 'reign', 'days', 'date',
                                          'event', 'location', 'link'])
 
-df.to_csv('test.csv')
+
+
+df['belt'] = 'WWE Championship'
+#display(df)
+
+
+
+#Let's download the wrestler's individual wiki pages.  This will make
+#dealing with them a bit quicker.  Plus we aren't constantly bugging
+#wikipedia with requests this way.
+
+
+
+#Remove duplicates
+link_list_no_dups = list(dict.fromkeys(wrestlers_link_list))
+
+#This code is taken from my UFC Event Scraper.  It should work?
+for l in link_list_no_dups:
+    l_full = "https://en.wikipedia.org/" + l
+    print(l_full)    
+    l_name = l[6:]
+#    print(l_name)
+    html= urlopen(l_full)
+    bs = BeautifulSoup(html.read(), 'html.parser')
+    with open(f'wrestler_pages/{l_name}.html', "w", encoding='utf-8') as file:
+        file.write(str(bs))
+
+
+
+
+df.to_csv('test.csv', index=False)
 
 #4. Belt (WWE Championship)
-df['belt'] = 'WWE Championship'
-display(df)
 
 
 
