@@ -36,7 +36,7 @@ WWE Championship	December 10, 2016[8] – present
 
 """
 
-html=urlopen('https://en.wikipedia.org/wiki/List_of_WWE_Champions')
+html=urlopen('https://en.wikipedia.org/wiki/List_of_WWE_Raw_Women%27s_Champions')
 bs=BeautifulSoup(html, 'html.parser')
 
 bs_table = bs.find('table', {'class':'wikitable sortable',
@@ -116,7 +116,8 @@ for row in champ_rows:
     #We need to remove commas and pluses
     pos_days = pos_days.replace(",", "")
     pos_days = pos_days.replace("+", "")
-    
+    pos_reign = pos_reign.split(" ")[0] #We have a problem with notes after
+                                        #the reign number
     if (is_integer(pos_reign)):
         if not is_integer(pos_days):
             pos_days = '0'
@@ -150,7 +151,7 @@ df = pd.DataFrame(champ_tuples, columns=['name', 'reign', 'days', 'date',
 
 
 
-df['belt'] = 'WWE Championship'
+df['belt'] = 'WWE Raw Women\'s Championship'
 #display(df)
 
 
