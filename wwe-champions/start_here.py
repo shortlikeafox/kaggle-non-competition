@@ -36,7 +36,34 @@ WWE Championship	December 10, 2016[8] – present
 
 """
 
-html=urlopen('https://en.wikipedia.org/wiki/List_of_WWE_Raw_Women%27s_Champions')
+"""
+List of belts I've added
+
+WWE Championship
+WWE United State Championshiop
+WWE Women's Championship
+WWE Raw Women's Championship
+*WWE Universal Championship  #NOT DONE.  BUG IN WIKI ARTICLE WITH BRAY WYATT.
+    His span is not the proper class. I need to edit it maybe?
+WWE SmackDown Women's Championship
+*WWE Intercontinental Championship.  Same problem as Universal.  Maybe
+edit it?
+
+"""
+
+
+us_champion_url = 'https://en.wikipedia.org/wiki/List_of_WWE_United_States_Champions'
+universal_url = 'https://en.wikipedia.org/wiki/WWE_Universal_Championship'
+smackdown_womens_url = 'https://en.wikipedia.org/wiki/List_of_WWE_SmackDown_Women%27s_Champions'
+intercontinental_url = 'https://en.wikipedia.org/wiki/List_of_WWE_Intercontinental_Champions'
+
+current_url = intercontinental_url
+belt_name = "WWE Intercontinental Championship"
+
+
+html=urlopen(current_url)
+
+
 bs=BeautifulSoup(html, 'html.parser')
 
 bs_table = bs.find('table', {'class':'wikitable sortable',
@@ -59,7 +86,8 @@ bs_table = bs.find('table', {'class':'wikitable sortable',
 
 #1. Wrestler name
 wrestlers = bs_table.find_all('span', {'class':'fn'})
-
+print(wrestlers)
+#print(bs_table)
 wrestlers_list = []
 wrestlers_link_list = []
 for w in wrestlers:
@@ -97,7 +125,11 @@ for row in champ_rows:
     pos_location = ''
     if len(cols) == 9:
         pos_reign = cols[4].get_text()
+        #This next line fixes a problem with parenthesized numbers appearing
+        #after a reign.
+        pos_reign = pos_reign.split('(')[0]
         pos_date = cols[1].get_text()
+        #print(pos_date)
         pos_days = cols[5].get_text()
         pos_event = cols[2].get_text()
         pos_location = cols[3].get_text()
@@ -138,9 +170,14 @@ for row in champ_rows:
     if is_integer(pos_days):
         days_list.append(pos_days.strip())    
         
+#print(date_list)        
+
+
+        
 print(len(wrestlers_list), len(reign_list), len(days_list), len(date_list),
       len(event_list), len(location_list), len(wrestlers_link_list))        
 
+"""
 
 champ_tuples = list(zip(wrestlers_list, reign_list, days_list, date_list,
                         event_list, location_list, wrestlers_link_list))
@@ -151,7 +188,7 @@ df = pd.DataFrame(champ_tuples, columns=['name', 'reign', 'days', 'date',
 
 
 
-df['belt'] = 'WWE Raw Women\'s Championship'
+df['belt'] = belt_name
 #display(df)
 
 
@@ -188,3 +225,5 @@ df.to_csv('test.csv', index=False)
 
 ####OK!  This is complete.  We just need to open the wrestler pages
 #and get death info....
+
+"""
